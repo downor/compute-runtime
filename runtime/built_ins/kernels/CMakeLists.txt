@@ -46,15 +46,7 @@ function(compile_builtin gen_type platform_type builtin)
   unset(BUILTIN_CPP)
   # set variable outside function
   set(BUILTIN_CPP built_ins/${NEO_ARCH}/${gen_type_lower}/${BASENAME}_${family_name_with_type}.cpp PARENT_SCOPE)
-  if(WIN32)
     set(cloc_cmd_prefix ocloc)
-  else()
-    if(DEFINED IGDRCL__IGC_LIBRARY_PATH)
-      set(cloc_cmd_prefix LD_LIBRARY_PATH=${IGDRCL__IGC_LIBRARY_PATH} $<TARGET_FILE:ocloc>)
-    else()
-      set(cloc_cmd_prefix LD_LIBRARY_PATH=$<TARGET_FILE_DIR:ocloc> $<TARGET_FILE:ocloc>)
-    endif()
-  endif()
   list(APPEND __cloc__options__ "-cl-kernel-arg-info")
   add_custom_command(
     OUTPUT ${OUTPUT_FILES}
