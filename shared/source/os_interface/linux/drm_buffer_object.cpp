@@ -95,8 +95,6 @@ void BufferObject::fillExecObject(drm_i915_gem_exec_object2 &execObject, uint32_
 }
 
 int BufferObject::pin(BufferObject *const boToPin[], size_t numberOfBos, uint32_t drmContextId) {
-    reinterpret_cast<uint32_t *>(this->gpuAddress)[0] = 0x05000000;
-    reinterpret_cast<uint32_t *>(this->gpuAddress)[1] = 0x00000000;
     StackVec<drm_i915_gem_exec_object2, maxFragmentsCount + 1> execObject(numberOfBos + 1);
     return this->exec(4u, 0u, 0u, false, drmContextId, boToPin, numberOfBos, &execObject[0]);
 }
